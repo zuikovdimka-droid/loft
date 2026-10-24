@@ -70,7 +70,6 @@ p{margin:0 0 1em}
 .chips li{font-size:13px;color:var(--muted);border:1px solid var(--line);
   border-radius:999px;padding:6px 12px;background:rgba(255,255,255,.02)}
 
-/* Картинка в Hero (ИСПРАВЛЕНО) */
 .hero-media{position:relative;aspect-ratio:16/10;border-radius:var(--radius);
   border:1px solid var(--line);overflow:hidden;
   background:linear-gradient(135deg,#1b222a,#11151a)}
@@ -132,34 +131,7 @@ input:focus,textarea:focus{outline:2px solid rgba(255,77,46,.45);outline-offset:
 .footer-inner p{margin:0 0 6px}
 .site-footer strong{font-weight:700}
 
-/* Адаптив */
-@media (min-width:600px){
-  .grid-services{grid-template-columns:1fr 1fr}
-  .reviews-grid{grid-template-columns:1fr 1fr}
-  .contacts-grid{grid-template-columns:1fr 1fr}
-  .inner-grid { grid-template-columns: 1fr 1fr; }
-}
-
-@media (min-width:860px){
-  .nav{display:flex;gap:22px;font-size:14px;color:var(--muted)}
-  .nav a:hover{color:var(--text)}
-  .header-phone{display:inline}
-}
-
-@media (min-width:900px){
-  .hero { min-height: calc(100vh - 120px); display: flex; align-items: center; padding: 0; }
-  .hero-inner{grid-template-columns:1.1fr .9fr;align-items:center;gap:60px}
-  .hero h1 { font-size: clamp(40px, 5vw, 64px); }
-  .section{padding:80px 0}
-  .grid-services{grid-template-columns:repeat(3,1fr);gap:24px}
-  .reviews-grid{grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:20px;}
-  .contacts-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-  .booking{grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
-  .form{grid-template-columns:1fr 1fr;padding:32px}
-  .inner-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* Аккордеон (вынесен в самый конец) */
+/* Аккордеон (базовые стили) */
 .acc-group {
   grid-column: 1 / -1;
   background: var(--surface);
@@ -188,11 +160,40 @@ input:focus,textarea:focus{outline:2px solid rgba(255,77,46,.45);outline-offset:
 .acc-icon { color: var(--accent); font-size: 12px; transition: transform 0.3s ease; }
 .acc-group.active .acc-icon { transform: rotate(180deg); }
 .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+
+/* Сетка внутри аккордеона (по умолчанию 1 колонка) */
 .inner-grid {
   padding: 16px;
   border-top: 1px solid var(--line);
   background: var(--bg);
   grid-template-columns: 1fr;
+}
+
+/* АДАПТИВ (идет строго после базовых стилей) */
+@media (min-width: 600px){
+  .grid-services{grid-template-columns:1fr 1fr}
+  .reviews-grid{grid-template-columns:1fr 1fr}
+  .contacts-grid{grid-template-columns:1fr 1fr}
+  .inner-grid { grid-template-columns: 1fr 1fr; } /* 2 колонки */
+}
+
+@media (min-width: 860px){
+  .nav{display:flex;gap:22px;font-size:14px;color:var(--muted)}
+  .nav a:hover{color:var(--text)}
+  .header-phone{display:inline}
+}
+
+@media (min-width: 900px){
+  .hero { min-height: calc(100vh - 120px); display: flex; align-items: center; padding: 0; }
+  .hero-inner{grid-template-columns:1.1fr .9fr;align-items:center;gap:60px}
+  .hero h1 { font-size: clamp(40px, 5vw, 64px); }
+  .section{padding:80px 0}
+  .grid-services{grid-template-columns:repeat(3,1fr);gap:24px}
+  .reviews-grid{grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:20px;}
+  .contacts-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+  .booking{grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+  .form{grid-template-columns:1fr 1fr;padding:32px}
+  .inner-grid { grid-template-columns: repeat(3, 1fr); } /* 3 колонки для ПК */
 }
 </style>
 </head>
@@ -363,15 +364,48 @@ window.SITE_DATA = {
   phone: "+7 (903) 969-17-42",
   address: "Лесная ул., 61, стр. 4",
   mapUrl: "https://yandex.ru/maps/org/loft_garage/1043519761/",
+  
   services: [
-    { title: "Замена помпы", price: "5000 ₽", src: null },
-    { title: "Диагностика", price: "1500 ₽", src: null },
-    { title: "Замена ГРМ", price: "8000 ₽", src: null },
-    { title: "Замена колодок", price: "1500 ₽", src: null },
-    { title: "Замена масла в ДВС и Фильтра", price: "1500 ₽", src: null },
-    { title: "Замена цепи ГРМ", price: "20000 ₽", src: null },
-    { title: "Шиномонтаж", price: "2000 ₽", src: null }
+    {
+      category: "Техническое обслуживание",
+      items: [
+        { title: "Замена масла в ДВС и Фильтра", price: "1500 ₽", src: null },
+        { title: "Замена масла в АКПП", price: "2500 ₽", src: null },
+        { title: "Замена масла в мостах", price: "1800 ₽", src: null },
+        { title: "Замена антифриза (охлаждающей жидкости)", price: "2500 ₽", src: null },
+        { title: "Замена жидкости ГУР", price: "2000 ₽", src: null }
+      ]
+    },
+    {
+      category: "Ремонт двигателя и ГРМ",
+      items: [
+        { title: "Замена ГРМ", price: "8000 ₽", src: null },
+        { title: "Замена цепи ГРМ", price: "20000 ₽", src: null },
+        { title: "Замена помпы", price: "5000 ₽", src: null },
+        { title: "Замена сцепления", price: "9000 ₽", src: null },
+        { title: "Замена крестовины", price: "5000 ₽", src: null }
+      ]
+    },
+    {
+      category: "Тормозная система",
+      items: [
+        { title: "Замена колодок", price: "1500 ₽", src: null },
+        { title: "ЗАМЕНА ТОРМОЗНОЙ ЖИДКОСТИ", price: "3000 ₽", src: null },
+        { title: "Профилактика суппорта", price: "1000 ₽", src: null }
+      ]
+    },
+    {
+      category: "Диагностика и прочее",
+      items: [
+        { title: "Диагностика", price: "1500 ₽", src: null },
+        { title: "Компьютерная диагностика", price: "1300 ₽", src: null },
+        { title: "Сход Развал", price: "3500 ₽", src: null },
+        { title: "Шиномонтаж", price: "2000 ₽", src: null },
+        { title: "Замена ламп", price: "300 ₽", src: null }
+      ]
+    }
   ],
+  
   reviews: [
     { stars: 5.0, date: "01 июля 2026", text: "Поменяли трубки ГУР, детали заказали, быстро починили и не дорого. В других сервисах ценник был в два раза больше. Ребята знают своё дело." },
     { stars: 5.0, date: "24 августа 2026", text: "Самый адекватный автосервис. Ничего не навязывают, цены хорошие. Обычно девушек за рулем разводят, а здесь я могу не бояться." },
@@ -385,7 +419,8 @@ window.SITE_DATA = {
   var q = function (s) { return document.querySelector(s); };
   var all = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
   var show = function (n, on) { if (n) n.hidden = !on; };
-  // Применяем цветовую тему (если она задана в data.js)
+
+  // 1. Применяем цветовую тему (если она задана в data.js)
   if (d.theme) {
     var root = document.documentElement;
     for (var key in d.theme) {
@@ -394,16 +429,18 @@ window.SITE_DATA = {
       }
     }
   }
-  // Название
-  if (d.name){
-     all('[data-name]').forEach(function (n) { n.textContent = d.name; });
-    document.title = d.name + '- демо-концепт лендинга';
-    var logo = document.querySelector('[data-logo]');
+
+  // 2. Название, Title и Логотип
+  if (d.name) {
+    all('[data-name]').forEach(function (n) { n.textContent = d.name; });
+    document.title = d.name + ' — демо-концепт лендинга';
+    var logo = q('[data-logo]');
     if (logo) {
       logo.textContent = d.name.charAt(0).toUpperCase();
     }
   }
-  // Часы работы
+
+  // 3. Часы работы
   var hours = d.hours || null;
   all('[data-hours]').forEach(function (n) { n.textContent = hours || ''; });
   show(q('[data-hours-wrap]'), !!hours);
@@ -413,7 +450,7 @@ window.SITE_DATA = {
   var chip = q('[data-hours-chip]');
   if (chip) { chip.textContent = hours || ''; show(chip, !!hours); }
 
-  // Телефон — нет данных → блок скрыт
+  // 4. Телефон
   var phone = d.phone || null;
   all('[data-phone]').forEach(function (n) {
     if (!phone) { show(n.closest('[data-phone-card]') || n, false); return; }
@@ -422,27 +459,33 @@ window.SITE_DATA = {
   });
   show(q('[data-phone-card]'), !!phone);
 
-  // Адрес — нет данных → блок скрыт
+  // 5. Адрес
   var address = d.address || null;
   all('[data-address]').forEach(function (n) { n.textContent = address || ''; });
   show(q('[data-address-card]'), !!address);
 
-  // Карта — только реальная ссылка
+  // 6. Карта
   all('[data-map]').forEach(function (a) {
     if (d.mapUrl) a.href = d.mapUrl; else show(a, false);
   });
 
-  // Услуги (фото + название + цена)
-    // Услуги (фото + название + цена)
+  // 7. Услуги (с авто-аккордеоном)
   var services = d.services || [];
   var sGrid = document.getElementById('services-grid');
   show(document.getElementById('services'), services.length > 0);
 
-  // Проверяем, сгруппированы ли услуги (есть ли ключ items)
   var isGrouped = services.length > 0 && services[0].items;
 
+  // Если услуг больше 8, но они не разбиты по категориям — упаковываем в один аккордеон
+  if (!isGrouped && services.length > 8) {
+    services = [{
+      category: "Все услуги",
+      items: services
+    }];
+    isGrouped = true;
+  }
+
   if (isGrouped) {
-    // РЕНДЕР АККОРДЕОНА (по категориям)
     services.forEach(function (group) {
       var accGroup = document.createElement('div');
       accGroup.className = 'acc-group';
@@ -450,7 +493,7 @@ window.SITE_DATA = {
       var header = document.createElement('button');
       header.type = 'button';
       header.className = 'acc-header';
-      header.innerHTML = `<span>${group.category}</span><span class="acc-icon">▼</span>`;
+      header.innerHTML = '<span>' + group.category + '</span><span class="acc-icon">▼</span>';
 
       var content = document.createElement('div');
       content.className = 'acc-content';
@@ -467,24 +510,21 @@ window.SITE_DATA = {
       accGroup.appendChild(content);
       sGrid.appendChild(accGroup);
 
-      // Логика раскрытия
       header.addEventListener('click', function () {
         accGroup.classList.toggle('active');
-         if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        if (content.style.maxHeight && content.style.maxHeight !== '0px') {
           content.style.maxHeight = '0px';
         } else {
-          content.style.maxHeight = '2500px'; // Даем много места, чтобы все фото прогрузились
+          content.style.maxHeight = '2500px'; 
         }
       });
     });
   } else {
-    // РЕНДЕР ОБЫЧНОЙ СЕТКИ (для остальных сайтов)
     services.forEach(function (s) {
       sGrid.appendChild(createServiceCard(s));
     });
   }
 
-  // Вспомогательная функция для создания карточки
   function createServiceCard(s) {
     var card = document.createElement('article');
     card.className = 'card';
@@ -532,8 +572,7 @@ window.SITE_DATA = {
     return card;
   }
 
-  // Отзывы (пересказ, без имён)
-    // Отзывы (пересказ, без имён)
+  // 8. Отзывы
   var reviews = d.reviews || [];
   var rGrid = document.getElementById('reviews-grid');
   show(document.getElementById('reviews'), reviews.length > 0);
@@ -542,7 +581,6 @@ window.SITE_DATA = {
     var card = document.createElement('article');
     card.className = 'review' + (r.stars >= 4 ? '' : ' low');
 
-    // Шапка отзыва: звезды и дата
     var header = document.createElement('div');
     header.className = 'review-header';
 
@@ -572,6 +610,17 @@ window.SITE_DATA = {
 
     rGrid.appendChild(card);
   });
+
+  // 9. Демо-форма
+  var form = q('.form');
+  if (form) form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var st = q('.form-status');
+    if (st) { st.hidden = false; st.textContent = 'Это демо: данные не отправляются.'; }
+  });
+
+  // 10. Год в подвале
+  all('[data-year]').forEach(function (n) { n.textContent = new Date().getFullYear(); });
 })();
 </script>
 </body>
